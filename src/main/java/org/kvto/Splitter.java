@@ -1,14 +1,12 @@
 package org.kvto;
 
-import java.util.Comparator;
-
 public class Splitter {
 
     private final Module module;
 
     Splitter(Module module) {
 
-//        Tree tree =new Tree();
+
         this.module = module;
         var mainFunction = this.module.mainFunction;
 
@@ -22,14 +20,28 @@ public class Splitter {
 
         });
 
-        int totalCost = computeCost(mainFunction);
+        var directedGraph = new DirectedGraph();
+        for (SplittableUnit splittableUnit : functions.values()) {
 
-        functions.values().stream().sorted(new Comparator<SplittableUnit>() {
-            @Override
-            public int compare(SplittableUnit o1, SplittableUnit o2) {
-                return o1.realCost - o2.realCost;
+            directedGraph.addNode(splittableUnit);
+            for (SplittableUnit unit : splittableUnit.dependency) {
+                splittableUnit.addNeighbor(unit);
             }
-        });
+
+
+            directedGraph.replaceCyclesWithNodes();
+
+
+        }
+
+//        int totalCost = computeCost(mainFunction);
+//
+//        functions.values().stream().sorted(new Comparator<SplittableUnit>() {
+//            @Override
+//            public int compare(SplittableUnit o1, SplittableUnit o2) {
+//                return o1.realCost - o2.realCost;
+//            }
+//        });
 
 
     }

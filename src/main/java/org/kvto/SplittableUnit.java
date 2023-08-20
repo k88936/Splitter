@@ -8,7 +8,7 @@ enum mode {
     sync
 }
 
-public abstract class SplittableUnit {
+public abstract class SplittableUnit extends Node {
 
     public String identifier;
     protected int cost;
@@ -16,6 +16,7 @@ public abstract class SplittableUnit {
     protected ArrayList<SplittableUnit> dependency = new ArrayList<>();
 
     SplittableUnit(String identifier, mode mode, int cost) {
+        super(0);
 
         this.identifier = identifier;
         this.realCost = -1;
