@@ -1,4 +1,4 @@
-package com.kvto;
+package org.kvto;
 
 public class Main {
     public static void main(String[] args) {

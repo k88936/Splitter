@@ -2,18 +2,30 @@ package org.kvto;
 
 import java.util.ArrayList;
 
-public interface Splittable {
-
-    ArrayList<Splittable> dependency = new ArrayList<>();
-    int cost();
-    ArrayList<Splittable> dependency();
-    String GenBody();
-
-    mode mode();
-}
-enum mode{
+enum mode {
     green,
     effective,
     sync
-    ;
+}
+
+public abstract class SplittableUnit {
+
+    public String identifier;
+    protected int cost;
+    protected int realCost;
+    protected ArrayList<SplittableUnit> dependency = new ArrayList<>();
+
+    SplittableUnit(String identifier, mode mode, int cost) {
+
+        this.identifier = identifier;
+        this.realCost = -1;
+
+        this.cost = cost;
+    }
+
+    abstract String GenBody();
+
+    abstract ArrayList<String> dependency();
+
+
 }
