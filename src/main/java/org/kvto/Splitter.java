@@ -7,32 +7,9 @@ public class Splitter {
     private final Module module;
 
     Splitter(Module module) {
+
+//        Tree tree =new Tree();
         this.module = module;
-        setup();
-
-    }
-
-    int computeCost(SplittableUnit splittableUnit) {
-
-
-        int rc = splittableUnit.realCost;
-        if (rc != -1) return rc;
-        splittableUnit.realCost = 0;
-        for (SplittableUnit unit : splittableUnit.dependency) {
-
-            splittableUnit.realCost += computeCost(unit);
-
-        }
-
-
-        return splittableUnit.realCost = splittableUnit.realCost + splittableUnit.cost;
-    }
-
-    void select(SplittableUnit splittableUnit) {
-
-    }
-
-    private void setup() {
         var mainFunction = this.module.mainFunction;
 
         var functions = this.module.functions;
@@ -54,6 +31,26 @@ public class Splitter {
             }
         });
 
+
+    }
+
+    int computeCost(SplittableUnit splittableUnit) {
+
+
+        int rc = splittableUnit.realCost;
+        if (rc != -1) return rc;
+        splittableUnit.realCost = 0;
+        for (SplittableUnit unit : splittableUnit.dependency) {
+
+            splittableUnit.realCost += computeCost(unit);
+
+        }
+
+
+        return splittableUnit.realCost = splittableUnit.realCost + splittableUnit.cost;
+    }
+
+    void select(SplittableUnit splittableUnit) {
 
     }
 
