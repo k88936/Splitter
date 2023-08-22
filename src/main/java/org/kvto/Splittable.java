@@ -3,24 +3,29 @@ package org.kvto;
 import java.util.ArrayList;
 import java.util.List;
 
-class Node {
-    private final List<Node> neighbors;
+class Splittable {
+    private final List<Splittable> neighbors;
+    public int depenCost = 0;
     private int id;
 
-    public Node() {
-//        this.id = id;
+
+    public Splittable() {
         neighbors = new ArrayList<>();
     }
 
-    public void addNeighbor(Node neighbor) {
+    public void addNeighbor(Splittable neighbor) {
         neighbors.add(neighbor);
+    }
+
+    int getCost() {
+        return 0;
     }
 
     public int getId() {
         return id;
     }
 
-    public List<Node> getNeighbors() {
+    public List<Splittable> getNeighbors() {
         return neighbors;
     }
 
@@ -30,6 +35,6 @@ class Node {
 
     @Override
     public String toString() {
-        return "Node " + id;
+        return "Splittable " + id;
     }
 }

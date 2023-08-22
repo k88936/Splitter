@@ -8,20 +8,25 @@ enum mode {
     sync
 }
 
-public abstract class SplittableUnit extends Node {
+public abstract class SplittableUnit extends Splittable {
 
     public String identifier;
     protected int cost;
-    protected int realCost;
+
+    mode mode;
     protected ArrayList<SplittableUnit> dependency = new ArrayList<>();
 
     SplittableUnit(String identifier, mode mode, int cost) {
-        super(0);
+
 
         this.identifier = identifier;
-        this.realCost = -1;
+        this.mode = mode;
 
         this.cost = cost;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     abstract String GenBody();
