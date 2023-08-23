@@ -1,5 +1,7 @@
 package org.kvto;
 
+import java.util.ArrayList;
+
 public class Splitter {
 
     private final Module module;
@@ -20,7 +22,7 @@ public class Splitter {
 
         });
 
-        var callGraph = new CallGraph();
+        var callGraph = new Analysis();
         for (SplittableUnit splittableUnit : functions.values()) {
 
             callGraph.addSplittable(splittableUnit);
@@ -34,6 +36,8 @@ public class Splitter {
         callGraph.replaceCyclesWithSplittables();
         int total = callGraph.computeCost(mainFunction);
         var combinations = callGraph.findCombinations(mainFunction);
+        ArrayList<Segment> split = callGraph.split(mainFunction, new ArrayList<Segment>());;
+        
 
 
     }

@@ -2,12 +2,14 @@ package org.kvto;
 
 import java.util.*;
 
-public class CallGraph {
+
+
+public class Analysis {
     private int numVertices;
     private final List<Splittable> nodes;
     private final int targetCost = 800;
 
-    public CallGraph() {
+    public Analysis() {
         this.numVertices = 0;
         nodes = new ArrayList<>();
     }
@@ -122,17 +124,33 @@ public class CallGraph {
         }
     }
 
-    public void split(Splittable root) {
-        findCombinations(root);
+    public ArrayList<Segment> split(Splittable root,ArrayList<Segment> select) {
+        List<Segment> segments=findCombinations(root);
+        // segments.max(Comparator.comparingInt(s -> s.evaluate()));
+        Segment segment = segments.stream().max(Comparator.comparingInt(Segment::evaluate)).get();;
+
+        select.add(segment);
+        for (Splittable node : segment.root.getNeighbors()) {
+        
+            split(root, select);
+        }
+
+
+
+        return select;
+        
+
+
     }
+
 
 // 获取所有节点的组合
 
 
     // 计算组合的 cost 总和
 
-    public List<List<Splittable>> findCombinations(Splittable root) {
-        List<List<Splittable>> combinations = new ArrayList<>();
+    public List<Segment> findCombinations(Splittable root) {
+        List<Segment> combinations = new ArrayList<>();
 
         if (root == null) {
             return combinations;
@@ -147,15 +165,17 @@ public class CallGraph {
             List<Splittable> currCombination = queue.poll();
             Splittable lastSplittable = currCombination.get(currCombination.size() - 1);
             int totalCost = 0;
+            HashSet<Splittable> visited = new HashSet<>();
             for (Splittable node : currCombination) {
-                totalCost += node.getCost();
+               visited.add(node);
             }
-            int currentCost = totalCost;
-
-            if (currentCost >= targetCost) {
+            for (Splittable node : visited) {
+                totalCost+=node.cost;
+            }
+            if (totalCost >= targetCost) {
                 continue; // 如果当前 cost 总和大于等于目标值，跳过该组合
             } else {
-                combinations.add(currCombination); // 将当前组合加入结果集
+                combinations.add(new Segment(currCombination)); // 将当前组合加入结果集
             }
 
             for (Splittable child : lastSplittable.getNeighbors()) {
@@ -168,7 +188,7 @@ public class CallGraph {
 
         // 如果没有找到满足条件的组合，则返回所有节点的组合
         if (combinations.isEmpty()) {
-            combinations.add(nodes);
+            combinations.add(new Segment(nodes));
         }
 
         return combinations;

@@ -3,10 +3,17 @@ package org.kvto;
 import java.util.ArrayList;
 import java.util.List;
 
+enum mode {
+    green,
+    red,
+    blue
+}
 class Splittable {
     private final List<Splittable> neighbors;
     public int depenCost = 0;
     private int id;
+    public int cost;
+    public mode mode;
 
 
     public Splittable() {
