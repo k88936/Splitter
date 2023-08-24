@@ -6,6 +6,8 @@ public abstract class Module {
     protected final SplittableUnit mainFunction;
     protected final HashMap<String, SplittableUnit> functions;
 
+    Generator generator;
+
     Module(SplittableUnit mainFunction) {
         this.mainFunction = mainFunction;
         functions = new HashMap<>();

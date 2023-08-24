@@ -9,7 +9,18 @@ public class Analysis {
     private final List<Splittable> nodes;
     private final int targetCost = 800;
 
-    public Analysis() {
+    public Analysis(Collection<SplittableUnit> funcs) {
+        for (SplittableUnit splittableUnit : funcs) {
+
+            splittableUnit.setFuncId(numVertices);
+
+            this.addSplittable(splittableUnit);
+            for (SplittableUnit unit : splittableUnit.dependency) {
+                splittableUnit.addNeighbor(unit);
+            }
+
+
+        }
         this.numVertices = 0;
         nodes = new ArrayList<>();
     }

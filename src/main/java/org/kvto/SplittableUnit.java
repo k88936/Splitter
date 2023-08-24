@@ -7,28 +7,36 @@ import java.util.ArrayList;
 public abstract class SplittableUnit extends Splittable {
 
     public String identifier;
+
     // protected int cost;
+    public int FuncId;
 
-   
-    protected ArrayList<SplittableUnit> dependency = new ArrayList<>();
-
-    SplittableUnit(String identifier, mode mode, int cost) {
+    SplittableUnit(String identifier, int cost) {
 
 
         this.identifier = identifier;
-        this.mode = mode;
+
 
         this.cost = cost;
     }
+
+
+    protected ArrayList<SplittableUnit> dependency = new ArrayList<>();
+
+    abstract String GenBody(Generator generator);
 
     @Override
     public int getCost() {
         return cost;
     }
 
-    abstract String GenBody();
+    abstract mode judgeMode();
 
     abstract ArrayList<String> dependency();
+
+    public void setFuncId(int funcId) {
+        FuncId = funcId;
+    }
 
 
 }

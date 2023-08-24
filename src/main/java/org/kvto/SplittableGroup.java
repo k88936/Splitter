@@ -8,10 +8,11 @@ public class SplittableGroup extends Splittable {
     public SplittableGroup(List<Splittable> splittableUnits) {
         for (Splittable splittableUnit : splittableUnits) {
             this.cost+= splittableUnit.cost;
+
             this.splittableUnits
                     .add((SplittableUnit) splittableUnit);
         }
-        this.mode=mode.red;
+        this.mode = org.kvto.mode.red;
 
     }
 

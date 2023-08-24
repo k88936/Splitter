@@ -16,28 +16,20 @@ public class Splitter {
         functions.values().forEach(f -> {
 
 
+            f.mode = f.judgeMode();
             f.dependency().forEach(name -> {
                 f.dependency.add(functions.get(name));
             });
 
         });
 
-        var callGraph = new Analysis();
-        for (SplittableUnit splittableUnit : functions.values()) {
+        var callGraph = new Analysis(functions.values());
 
-            callGraph.addSplittable(splittableUnit);
-            for (SplittableUnit unit : splittableUnit.dependency) {
-                splittableUnit.addNeighbor(unit);
-            }
-
-
-        }
 
         callGraph.replaceCyclesWithSplittables();
         int total = callGraph.computeCost(mainFunction);
         var combinations = callGraph.findCombinations(mainFunction);
-        ArrayList<Segment> split = callGraph.split(mainFunction, new ArrayList<Segment>());;
-        
+        ArrayList<Segment> split = callGraph.split(mainFunction, new ArrayList<Segment>());
 
 
     }
