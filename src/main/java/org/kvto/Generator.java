@@ -1,5 +1,8 @@
 package org.kvto;
 
+/**
+ * it is still under design ,the methods are far from enough
+ */
 public abstract class Generator {
     abstract String GenArg(int i);
 
