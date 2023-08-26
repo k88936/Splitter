@@ -32,7 +32,7 @@ Splitter is a logic program splitter to crack 1000 insts limits for the Mindustr
  Main program.
 
 ## Instructions
-1. It is recommended to integrate Splitter into the compiler (to collect necessary information).
+1. It is recommended to integrate Splitter into the compiler (to collect necessary information).you need to Implement abstract method in module and  splittablUnit ,  generate splittableUnit for each function ,add all of them into module ,at last ,use splitter,get the final result.
 2. Splitter is a framework, and to make it compatible with your compiler, you often need to implement how your compiler handles functions. For example, if you want to call a recursive function in shared memory, you will often need to pass the stack pointer in the implementation of the recursive function call in Module using the methods from Generator. When parsing parameters for subroutine in Module, remember to parse the stack pointer.
 
 > Represents the entire program and defines the framework (code other than functions) and parameters for main logic blocks and sub logic blocks. Also includes methods for parsing parameters. Please refer to the source code comments for more details.
